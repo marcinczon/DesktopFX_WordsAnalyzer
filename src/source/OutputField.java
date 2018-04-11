@@ -37,7 +37,7 @@ public class OutputField
 		return outputField;
 	}
 
-	public void updateTable()
+	public void updateTable(int byColumn)
 	{
 		Set<String> keys = outData.keySet();
 		outputField.getItems().clear();
@@ -46,6 +46,7 @@ public class OutputField
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
+			tempData.setColumnToFilter(byColumn);
 			if (tempData.isInLengthRange(minLengthRange, maxLengthRange) && tempData.isInCounterRange(minCounterRange, maxCounterRange))
 			{
 				outputField.getItems().add(tempData);

@@ -24,8 +24,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -54,6 +56,7 @@ public class GUI
 	HBox hboxBottom3;
 	HBox hboxBottom4;
 	VBox vboxBottom1;
+	VBox vboxBottom2;
 
 	TextField inputText;
 	BorderPane boarderPane;
@@ -68,12 +71,17 @@ public class GUI
 	Label couterLabel;
 	Label textLabel1;
 	Label textLabel2;
+
 	TextField minWordLength;
 	TextField maxWordLength;
 	TextField minCounter;
 	TextField maxCounter;
 	TextField webTextField;
 	TextField googleCodeTextField;
+
+	ToggleGroup groupFilterChoose;
+	RadioButton radioSource;
+	RadioButton radioTranslate;
 
 	// Referencje do innych klas
 	InputField inputField;
@@ -96,12 +104,16 @@ public class GUI
 		hboxBottom3 = new HBox();
 		hboxBottom4 = new HBox();
 		vboxBottom1 = new VBox();
+		vboxBottom2 = new VBox();
+
 
 		boarderPane = new BorderPane();
 
 		this.width = width;
 		this.heigh = heigh;
 
+		this.GUIinitialize();
+		
 		// ******************
 		// Top Pane
 		// ******************
@@ -140,8 +152,10 @@ public class GUI
 		// ******************
 
 		couterLabel = new Label(String.format("%4d", 0));
-		couterLabel.setStyle("-fx-font: normal  18px 'serif' ");
+		couterLabel.setStyle("-fx-font: normal  50px 'serif' ");
 		couterLabel.setTextFill(Color.BLUE);
+		couterLabel.setLayoutX(width/2+300);
+		couterLabel.setLayoutY(30);
 
 		String style = "-fx-font: normal 18px 'Calibri' ";
 		buttonAnalyze = new Button("Analyze");
@@ -173,16 +187,30 @@ public class GUI
 
 		hboxBottom1.setAlignment(Pos.BASELINE_RIGHT);
 		hboxBottom1.setSpacing(1);
-		hboxBottom1.getChildren().addAll(couterLabel, buttonAnalyze, buttonUpdate);
+		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate);
 		hboxBottom2.getChildren().addAll(textLabel1, minWordLength, maxWordLength);
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
 		vboxBottom1.setSpacing(5);
+		
+		groupFilterChoose = new ToggleGroup();
+		radioSource = new RadioButton("Source");
+		radioTranslate = new RadioButton("Translate");
+		radioSource.setSelected(true);
+		radioSource.setToggleGroup(groupFilterChoose);
+		radioTranslate.setToggleGroup(groupFilterChoose);
+		
+		
+		vboxBottom2.setSpacing(10);
+		vboxBottom2.setLayoutX(width/2-120);
+		vboxBottom2.setLayoutY(paneBottom.getLayoutY()+45);
+		
+		vboxBottom2.getChildren().addAll(radioSource,radioTranslate);
+		
 		vboxBottom1.getChildren().addAll(hboxBottom1, hboxBottom2, hboxBottom3);
+		paneBottom.getChildren().addAll(vboxBottom1,vboxBottom2,couterLabel);
 
-		paneBottom.getChildren().addAll(vboxBottom1);
-
-		this.GUIinitialize();
+		
 		this.GUIinitializeButton();
 	}
 
@@ -216,7 +244,7 @@ public class GUI
 			public void handle(MouseEvent event)
 			{
 				inputField.writeAllWords();
-				outputField.updateTable();
+				outputField.updateTable(1);
 				couterLabel.setText(String.format("%4d", outData.size()));
 			}
 		});
@@ -231,7 +259,16 @@ public class GUI
 				outputField.setMaxLengthRange(Integer.parseInt(maxWordLength.getText()));
 				outputField.setMinCounterRange(Integer.parseInt(minCounter.getText()));
 				outputField.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
-				outputField.updateTable();
+				if(radioSource.isSelected())
+				{
+					outputField.updateTable(1);
+					System.out.println("Radio source");
+				}
+				else if(radioTranslate.isSelected())
+				{
+					outputField.updateTable(2);
+					System.out.println("Radio translate");
+				}
 				couterLabel.setText(String.format("%d", outData.size()));
 			}
 		});

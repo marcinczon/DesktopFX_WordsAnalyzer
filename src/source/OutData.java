@@ -1,10 +1,12 @@
 package source;
+
 public class OutData implements Comparable<OutData>
 {
 
 	private int Counter = 1;
 	private int SourceWordLength = 0;
 	private int TranslateWordLength = 0;
+	private int ColumnToFilter = 1; // 1 - source 2 - translated
 	private String Source = "";
 	private String Translate = "";
 
@@ -38,11 +40,19 @@ public class OutData implements Comparable<OutData>
 
 	public boolean isInLengthRange(int min, int max)
 	{
-		return min<=SourceWordLength && SourceWordLength<=max;
+		if (ColumnToFilter == 1)
+		{
+			return min <= SourceWordLength && SourceWordLength <= max;
+		} else if (ColumnToFilter == 2)
+		{
+			return min <= TranslateWordLength && TranslateWordLength <= max;
+		} else
+			return false;
 	}
+
 	public boolean isInCounterRange(int min, int max)
 	{
-		return min<=Counter && Counter<=max;
+		return min <= Counter && Counter <= max;
 	}
 
 	public void increseCounter()
@@ -103,6 +113,11 @@ public class OutData implements Comparable<OutData>
 	public String getTranslate()
 	{
 		return Translate;
+	}
+
+	public void setColumnToFilter(int columnToFilter)
+	{
+		ColumnToFilter = columnToFilter;
 	}
 
 }
