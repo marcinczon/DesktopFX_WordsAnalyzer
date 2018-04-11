@@ -65,7 +65,6 @@ public class GUI
 	Button buttonAnalyze;
 	Button buttonUpdate;
 	Button buttonDownloadWeb;
-	Button buttonTakeGoogleCode;
 	Button buttonTranslate;
 
 	Label couterLabel;
@@ -77,7 +76,8 @@ public class GUI
 	TextField minCounter;
 	TextField maxCounter;
 	TextField webTextField;
-	TextField googleCodeTextField;
+	static TextField googleCodeTextField;
+	TextField setLanguage;
 
 	ToggleGroup groupFilterChoose;
 	RadioButton radioSource;
@@ -106,14 +106,13 @@ public class GUI
 		vboxBottom1 = new VBox();
 		vboxBottom2 = new VBox();
 
-
 		boarderPane = new BorderPane();
 
 		this.width = width;
 		this.heigh = heigh;
 
 		this.GUIinitialize();
-		
+
 		// ******************
 		// Top Pane
 		// ******************
@@ -129,23 +128,24 @@ public class GUI
 		webTextField.setPrefSize((width / 2) - 10, 40);
 		webTextField.setAlignment(Pos.CENTER_RIGHT);
 
-		buttonTakeGoogleCode = new Button("Update code");
-		buttonTakeGoogleCode.setLayoutX(width / 2);
-		buttonTakeGoogleCode.setLayoutY(5);
-		buttonTakeGoogleCode.setPrefSize((width / 4) - 2, 40);
+		setLanguage = new TextField("Language");
+		setLanguage.setAlignment(Pos.CENTER_RIGHT);
+		setLanguage.setLayoutX(width / 2);
+		setLanguage.setLayoutY(50);
+		setLanguage.setPrefSize((width / 4) - 2, 40);
 
 		buttonTranslate = new Button("Translate");
-		buttonTranslate.setLayoutX(width - width / 4);
+		buttonTranslate.setLayoutX(width / 2);
 		buttonTranslate.setLayoutY(5);
-		buttonTranslate.setPrefSize((width / 4) - 2, 40);
+		buttonTranslate.setPrefSize((width / 2) - 2, 40);
 
 		googleCodeTextField = new TextField("Google Code");
-		googleCodeTextField.setLayoutX(width / 2);
+		googleCodeTextField.setLayoutX(width / 2 + width / 4);
 		googleCodeTextField.setLayoutY(50);
-		googleCodeTextField.setPrefSize((width / 2) - 2, 40);
+		googleCodeTextField.setPrefSize((width / 4) - 2, 40);
 		googleCodeTextField.setAlignment(Pos.CENTER_RIGHT);
 
-		paneTop.getChildren().addAll(buttonDownloadWeb, webTextField, buttonTakeGoogleCode, googleCodeTextField, buttonTranslate);
+		paneTop.getChildren().addAll(buttonDownloadWeb, webTextField, setLanguage, googleCodeTextField, buttonTranslate);
 
 		// ******************
 		// Bottom Pane
@@ -154,7 +154,7 @@ public class GUI
 		couterLabel = new Label(String.format("%4d", 0));
 		couterLabel.setStyle("-fx-font: normal  50px 'serif' ");
 		couterLabel.setTextFill(Color.BLUE);
-		couterLabel.setLayoutX(width/2+300);
+		couterLabel.setLayoutX(width / 2 + 300);
 		couterLabel.setLayoutY(30);
 
 		String style = "-fx-font: normal 18px 'Calibri' ";
@@ -192,25 +192,23 @@ public class GUI
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
 		vboxBottom1.setSpacing(5);
-		
+
 		groupFilterChoose = new ToggleGroup();
 		radioSource = new RadioButton("Source");
 		radioTranslate = new RadioButton("Translate");
 		radioSource.setSelected(true);
 		radioSource.setToggleGroup(groupFilterChoose);
 		radioTranslate.setToggleGroup(groupFilterChoose);
-		
-		
-		vboxBottom2.setSpacing(10);
-		vboxBottom2.setLayoutX(width/2-120);
-		vboxBottom2.setLayoutY(paneBottom.getLayoutY()+45);
-		
-		vboxBottom2.getChildren().addAll(radioSource,radioTranslate);
-		
-		vboxBottom1.getChildren().addAll(hboxBottom1, hboxBottom2, hboxBottom3);
-		paneBottom.getChildren().addAll(vboxBottom1,vboxBottom2,couterLabel);
 
-		
+		vboxBottom2.setSpacing(10);
+		vboxBottom2.setLayoutX(width / 2 - 120);
+		vboxBottom2.setLayoutY(paneBottom.getLayoutY() + 45);
+
+		vboxBottom2.getChildren().addAll(radioSource, radioTranslate);
+
+		vboxBottom1.getChildren().addAll(hboxBottom1, hboxBottom2, hboxBottom3);
+		paneBottom.getChildren().addAll(vboxBottom1, vboxBottom2, couterLabel);
+
 		this.GUIinitializeButton();
 	}
 
@@ -259,16 +257,7 @@ public class GUI
 				outputField.setMaxLengthRange(Integer.parseInt(maxWordLength.getText()));
 				outputField.setMinCounterRange(Integer.parseInt(minCounter.getText()));
 				outputField.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
-				if(radioSource.isSelected())
-				{
-					outputField.updateTable(1);
-					System.out.println("Radio source");
-				}
-				else if(radioTranslate.isSelected())
-				{
-					outputField.updateTable(2);
-					System.out.println("Radio translate");
-				}
+				UpdateTable();
 				couterLabel.setText(String.format("%d", outData.size()));
 			}
 		});
@@ -302,6 +291,27 @@ public class GUI
 			}
 		});
 
+		buttonTranslate.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event)
+			{
+				outputField.translateTable(setLanguage.getText());
+				UpdateTable();
+			}
+		});
+
+	}
+
+	private void UpdateTable()
+	{
+		if (radioSource.isSelected())
+		{
+			outputField.updateTable(1);
+		} else if (radioTranslate.isSelected())
+		{
+			outputField.updateTable(2);
+		}
 	}
 
 	public void GUIsetReferenceData(InputField inputField, OutputField outputField)

@@ -1,4 +1,5 @@
 package source;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,6 +56,17 @@ public class OutputField
 
 	}
 
+	public void translateTable(String Language)
+	{
+		Set<String> keys = outData.keySet();
+		OutData tempData;
+		for (String key : keys)
+		{
+			tempData = outData.get(key);
+			tempData.setTranslateWord(GoogleTranslator.Translate(tempData.getSource(), Language));
+		}
+	}
+
 	public void setReferenceOutData(Map<String, OutData> outData)
 	{
 		this.outData = outData;
@@ -69,6 +81,7 @@ public class OutputField
 	{
 		this.maxLengthRange = maxRange;
 	}
+
 	public void setMinCounterRange(int minRange)
 	{
 		this.minCounterRange = minRange;
