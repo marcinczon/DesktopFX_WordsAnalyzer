@@ -38,9 +38,6 @@ public class ExportCVS
 		File file = fileChooser.showSaveDialog(null);
 		FileWriter fileWriter = new FileWriter(file);
 
-		pw = new PrintWriter(new File(path));
-		sb = new StringBuilder();
-
 		Set<String> keys = outData.keySet();
 		OutData tempData;
 		for (String key : keys)
