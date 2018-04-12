@@ -27,6 +27,7 @@ public class OutData
 
 	OutData(int counter, String source, String translate)
 	{
+		if(counter>1)
 		this.Counter = counter;
 		this.Source = source;
 		this.Translate = translate;

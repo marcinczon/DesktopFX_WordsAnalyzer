@@ -39,11 +39,13 @@ public class ExportCVS
 		FileWriter fileWriter = new FileWriter(file);
 
 		Set<String> keys = outData.keySet();
+		StringBuilder sb = new StringBuilder();
 		OutData tempData;
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
 			tempData.setColumnToFilter(filter.getColumn());
+			if(tempData!=null)
 			if (tempData.isInLengthRange(filter.getMinLengthRange(), filter.getMaxLengthRange()) && tempData.isInCounterRange(filter.getMinCounterRange(), filter.getMaxCounterRange()))
 			{
 				System.out.println("CSV: " + tempData.toString());
