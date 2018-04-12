@@ -9,13 +9,12 @@ public class OutData
 	private int SourceWordLength = 0;
 	private int TranslateWordLength = 0;
 	private int ColumnToFilter = 1; // 1 - source 2 - translated
-	private String Source = "";
-	private String Translate = "";
+	private String Source = "null";
+	private String Translate = "null";
 
 	OutData(String source)
 	{
 		this.Source = source;
-		this.Translate = "";
 		InitParameters();
 	}
 

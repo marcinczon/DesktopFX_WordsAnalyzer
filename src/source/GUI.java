@@ -1,5 +1,6 @@
 package source;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
@@ -8,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Whitelist;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -18,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -57,6 +61,7 @@ public class GUI
 	Button buttonUpdate;
 	Button buttonDownloadWeb;
 	Button buttonTranslate;
+	Button buttonExportCSV;
 
 	Label couterLabel;
 	Label textLabel1;
@@ -70,7 +75,7 @@ public class GUI
 	static TextField googleCodeTextField;
 	TextField setLanguage;
 
-	Alert alert; 
+	Alert alert;
 
 	ToggleGroup groupFilterChoose;
 	RadioButton radioSource;
@@ -79,6 +84,8 @@ public class GUI
 	// Referencje do innych klas
 	InputField inputField;
 	OutputField outputField;
+	Filter filter = new Filter();
+	ExportCVS exportCVS;
 	Map<String, OutData> outData;
 
 	public GUI(double width, double heigh)
@@ -100,7 +107,6 @@ public class GUI
 		vboxBottom2 = new VBox();
 
 		boarderPane = new BorderPane();
-		
 
 		this.width = width;
 		this.heigh = heigh;
@@ -156,6 +162,9 @@ public class GUI
 		buttonAnalyze.setPrefWidth(100);
 		buttonUpdate = new Button("Update");
 		buttonUpdate.setPrefWidth(100);
+		buttonExportCSV = new Button("Export");
+		buttonExportCSV.setPrefWidth(100);
+
 		textLabel1 = new Label("Length:    ");
 		textLabel1.setStyle(style);
 
@@ -181,7 +190,7 @@ public class GUI
 
 		hboxBottom1.setAlignment(Pos.BASELINE_RIGHT);
 		hboxBottom1.setSpacing(1);
-		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate);
+		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV);
 		hboxBottom2.getChildren().addAll(textLabel1, minWordLength, maxWordLength);
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
@@ -236,25 +245,34 @@ public class GUI
 			public void handle(MouseEvent event)
 			{
 				inputField.writeAllWords();
-				outputField.updateTable(1);
+				outputField.updateTable();
 				couterLabel.setText(String.format("%4d", outData.size()));
 			}
 		});
 
 		buttonUpdate.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
-
 			@Override
 			public void handle(MouseEvent event)
 			{
-				outputField.setMinLengthRange(Integer.parseInt(minWordLength.getText()));
-				outputField.setMaxLengthRange(Integer.parseInt(maxWordLength.getText()));
-				outputField.setMinCounterRange(Integer.parseInt(minCounter.getText()));
-				outputField.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
 				UpdateTable();
 				couterLabel.setText(String.format("%4d", outData.size()));
 
-
+			}
+		});
+		buttonExportCSV.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event)
+			{
+				try
+				{
+					exportCVS.export();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -269,7 +287,7 @@ public class GUI
 					html = Jsoup.connect(webTextField.getText()).get().html();
 				} catch (IOException e)
 				{
-					 System.err.println(e);
+					System.err.println(e);
 				}
 				String result = "";
 
@@ -301,64 +319,86 @@ public class GUI
 		{
 			if (!newValue.matches("[0-9]+"))
 			{
-				 alert = new Alert(AlertType.ERROR);
-				 alert.setTitle("Error");
-				 alert.setHeaderText("Minimum Length");
-				 alert.setContentText("Enter only numbers !");				
-				 alert.showAndWait();
-				 minWordLength.setText(oldValue);
-				 
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Minimum Length");
+				alert.setContentText("Enter only numbers !");
+				alert.showAndWait();
+				minWordLength.setText(oldValue);
+			} else
+			{
+				filter.setMinLengthRange(Integer.parseInt(minWordLength.getText()));
 			}
 		});
 		maxWordLength.textProperty().addListener((observable, oldValue, newValue) ->
 		{
 			if (!newValue.matches("[0-9]+"))
 			{
-				 alert = new Alert(AlertType.ERROR);
-				 alert.setTitle("Error");
-				 alert.setHeaderText("Maximum Length");
-				 alert.setContentText("Enter only numbers !");				
-				 alert.showAndWait();
-				 maxWordLength.setText(oldValue);
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Maximum Length");
+				alert.setContentText("Enter only numbers !");
+				alert.showAndWait();
+				maxWordLength.setText(oldValue);
+			} else
+			{
+				filter.setMaxLengthRange(Integer.parseInt(maxWordLength.getText()));
 			}
 		});
 		minCounter.textProperty().addListener((observable, oldValue, newValue) ->
 		{
 			if (!newValue.matches("[0-9]+"))
 			{
-				 alert = new Alert(AlertType.ERROR);
-				 alert.setTitle("Error");
-				 alert.setHeaderText("Minimum Counter");
-				 alert.setContentText("Enter only numbers !");				
-				 alert.showAndWait();
-				 minCounter.setText(oldValue);
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Minimum Counter");
+				alert.setContentText("Enter only numbers !");
+				alert.showAndWait();
+				minCounter.setText(oldValue);
+			} else
+			{
+				filter.setMinCounterRange(Integer.parseInt(minCounter.getText()));
 			}
 		});
 		maxCounter.textProperty().addListener((observable, oldValue, newValue) ->
 		{
 			if (!newValue.matches("[0-9]+"))
 			{
-				 alert = new Alert(AlertType.ERROR);
-				 alert.setTitle("Error");
-				 alert.setHeaderText("Maximum Counter");
-				 alert.setContentText("Enter only numbers !");				
-				 alert.showAndWait();
-				 maxCounter.setText(oldValue);
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Maximum Counter");
+				alert.setContentText("Enter only numbers !");
+				alert.showAndWait();
+				maxCounter.setText(oldValue);
+			} else
+			{
+				filter.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
 			}
 		});
 
+		groupFilterChoose.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+		{
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle)
+			{
+				if (groupFilterChoose.getSelectedToggle() != null)
+				{
+					if (radioSource.isSelected())
+					{
+						filter.setColumn(1);
+
+					} else if (radioTranslate.isSelected())
+					{
+						filter.setColumn(2);
+					}
+				}
+			}
+		});
 
 	}
 
 	private void UpdateTable()
 	{
-		if (radioSource.isSelected())
-		{
-			outputField.updateTable(1);
-		} else if (radioTranslate.isSelected())
-		{
-			outputField.updateTable(2);
-		}
+		outputField.updateTable();
 	}
 
 	public void GUIsetReferenceData(InputField inputField, OutputField outputField)
@@ -371,14 +411,11 @@ public class GUI
 		{
 			System.err.println("GUI Reference Failed");
 		}
-		if (outputField != null)
-		{
-			System.out.println("Range are initialized.");
-			outputField.setMinLengthRange(Integer.parseInt(minWordLength.getText()));
-			outputField.setMaxLengthRange(Integer.parseInt(maxWordLength.getText()));
-			outputField.setMinCounterRange(Integer.parseInt(minCounter.getText()));
-			outputField.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
-		}
+	}
+
+	public void GUIsetReferenceFilter(Filter filter)
+	{
+		this.filter = filter;
 	}
 
 	public Pane getPaneMain()
@@ -409,6 +446,11 @@ public class GUI
 	public void GUIsetReferenceOutData(Map<String, OutData> outData)
 	{
 		this.outData = outData;
+	}
+
+	public void GUIsetReferenceExportCVS(ExportCVS exportCVS)
+	{
+		this.exportCVS = exportCVS;
 	}
 
 }

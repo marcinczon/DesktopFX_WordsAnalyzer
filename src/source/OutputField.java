@@ -13,8 +13,8 @@ public class OutputField
 
 	// Referencje do innych klas
 	Map<String, OutData> outData;
-	int minLengthRange, maxLengthRange;
-	int minCounterRange, maxCounterRange;
+	Filter filter;
+
 
 	TableView<OutData> outputField = new TableView<OutData>();
 	TableColumn<OutData, Integer> Counter = new TableColumn<OutData, Integer>("Counter");
@@ -41,7 +41,7 @@ public class OutputField
 		return outputField;
 	}
 
-	public void updateTable(int byColumn)
+	public void updateTable()
 	{
 		Set<String> keys = outData.keySet();
 		outputField.getItems().clear();
@@ -50,8 +50,8 @@ public class OutputField
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
-			tempData.setColumnToFilter(byColumn);
-			if (tempData.isInLengthRange(minLengthRange, maxLengthRange) && tempData.isInCounterRange(minCounterRange, maxCounterRange))
+			tempData.setColumnToFilter(filter.getColumn());
+			if (tempData.isInLengthRange(filter.getMinLengthRange(), filter.getMaxLengthRange()) && tempData.isInCounterRange(filter.getMinCounterRange(), filter.getMaxCounterRange()))
 			{
 				outputField.getItems().add(tempData);
 			}
@@ -75,23 +75,10 @@ public class OutputField
 		this.outData = outData;
 	}
 
-	public void setMinLengthRange(int minRange)
+	public void setReferenceFilter(Filter filter)
 	{
-		this.minLengthRange = minRange;
+		this.filter = filter;
 	}
 
-	public void setMaxLengthRange(int maxRange)
-	{
-		this.maxLengthRange = maxRange;
-	}
 
-	public void setMinCounterRange(int minRange)
-	{
-		this.minCounterRange = minRange;
-	}
-
-	public void setMaxCounterRange(int maxRange)
-	{
-		this.maxCounterRange = maxRange;
-	}
 }
