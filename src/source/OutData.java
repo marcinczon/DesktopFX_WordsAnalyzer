@@ -1,6 +1,8 @@
 package source;
 
-public class OutData implements Comparable<OutData>
+import java.util.Comparator;
+
+public class OutData
 {
 
 	private int Counter = 1;
@@ -72,12 +74,6 @@ public class OutData implements Comparable<OutData>
 	}
 
 	@Override
-	public int compareTo(OutData outData)
-	{
-		return this.Source.compareToIgnoreCase(outData.Source);
-	}
-
-	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
@@ -118,6 +114,39 @@ public class OutData implements Comparable<OutData>
 	public void setColumnToFilter(int columnToFilter)
 	{
 		ColumnToFilter = columnToFilter;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "OutData [Counter=" + Counter + ", Source=" + Source + ", Translate=" + Translate + "]";
+	}
+
+	public static class SourceComparator implements Comparator<OutData>
+	{
+		@Override
+		public int compare(OutData data1, OutData data2)
+		{
+			return data1.Source.compareTo(data2.Source);
+		}
+	}
+
+	public static class TranslateComparator implements Comparator<OutData>
+	{
+		@Override
+		public int compare(OutData data1, OutData data2)
+		{
+			return data1.Translate.compareTo(data2.Translate);
+		}
+	}
+
+	public static class CounterComparator implements Comparator<OutData>
+	{
+		@Override
+		public int compare(OutData data1, OutData data2)
+		{
+			return Integer.toString(data1.Counter).compareTo(Integer.toString(data2.Counter));
+		}
 	}
 
 }

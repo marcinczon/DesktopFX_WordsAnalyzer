@@ -1,27 +1,18 @@
 package source;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-
 import java.util.Map;
+import java.util.Observable;
 
 import org.jsoup.Jsoup;
-import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Whitelist;
 
-import com.sun.glass.events.KeyEvent;
-
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -30,11 +21,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 
 public class GUI
 {
@@ -79,6 +70,8 @@ public class GUI
 	static TextField googleCodeTextField;
 	TextField setLanguage;
 
+	Alert alert; 
+
 	ToggleGroup groupFilterChoose;
 	RadioButton radioSource;
 	RadioButton radioTranslate;
@@ -107,6 +100,7 @@ public class GUI
 		vboxBottom2 = new VBox();
 
 		boarderPane = new BorderPane();
+		
 
 		this.width = width;
 		this.heigh = heigh;
@@ -258,7 +252,9 @@ public class GUI
 				outputField.setMinCounterRange(Integer.parseInt(minCounter.getText()));
 				outputField.setMaxCounterRange(Integer.parseInt(maxCounter.getText()));
 				UpdateTable();
-				couterLabel.setText(String.format("%d", outData.size()));
+				couterLabel.setText(String.format("%4d", outData.size()));
+
+
 			}
 		});
 
@@ -273,7 +269,7 @@ public class GUI
 					html = Jsoup.connect(webTextField.getText()).get().html();
 				} catch (IOException e)
 				{
-					// System.err.println(e);
+					 System.err.println(e);
 				}
 				String result = "";
 
@@ -300,6 +296,57 @@ public class GUI
 				UpdateTable();
 			}
 		});
+
+		minWordLength.textProperty().addListener((observable, oldValue, newValue) ->
+		{
+			if (!newValue.matches("[0-9]+"))
+			{
+				 alert = new Alert(AlertType.ERROR);
+				 alert.setTitle("Error");
+				 alert.setHeaderText("Minimum Length");
+				 alert.setContentText("Enter only numbers !");				
+				 alert.showAndWait();
+				 minWordLength.setText(oldValue);
+				 
+			}
+		});
+		maxWordLength.textProperty().addListener((observable, oldValue, newValue) ->
+		{
+			if (!newValue.matches("[0-9]+"))
+			{
+				 alert = new Alert(AlertType.ERROR);
+				 alert.setTitle("Error");
+				 alert.setHeaderText("Maximum Length");
+				 alert.setContentText("Enter only numbers !");				
+				 alert.showAndWait();
+				 maxWordLength.setText(oldValue);
+			}
+		});
+		minCounter.textProperty().addListener((observable, oldValue, newValue) ->
+		{
+			if (!newValue.matches("[0-9]+"))
+			{
+				 alert = new Alert(AlertType.ERROR);
+				 alert.setTitle("Error");
+				 alert.setHeaderText("Minimum Counter");
+				 alert.setContentText("Enter only numbers !");				
+				 alert.showAndWait();
+				 minCounter.setText(oldValue);
+			}
+		});
+		maxCounter.textProperty().addListener((observable, oldValue, newValue) ->
+		{
+			if (!newValue.matches("[0-9]+"))
+			{
+				 alert = new Alert(AlertType.ERROR);
+				 alert.setTitle("Error");
+				 alert.setHeaderText("Maximum Counter");
+				 alert.setContentText("Enter only numbers !");				
+				 alert.showAndWait();
+				 maxCounter.setText(oldValue);
+			}
+		});
+
 
 	}
 

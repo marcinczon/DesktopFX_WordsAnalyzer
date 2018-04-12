@@ -26,8 +26,11 @@ public class OutputField
 		outputField.setEditable(true);
 
 		Counter.setCellValueFactory(new PropertyValueFactory<OutData, Integer>("Counter"));
+		Counter.setPrefWidth(100);
 		Source.setCellValueFactory(new PropertyValueFactory<OutData, String>("Source"));
+		Source.setPrefWidth(150);
 		Translate.setCellValueFactory(new PropertyValueFactory<OutData, String>("Translate"));
+		Translate.setPrefWidth(150);
 
 		outputField.getColumns().addAll(Counter, Source, Translate);
 		outputField.setPrefSize(width, heigh);
