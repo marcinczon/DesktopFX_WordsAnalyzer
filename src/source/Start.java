@@ -10,10 +10,11 @@ public class Start extends Application
 {
 	//**********************************************************************************************
 	// 1. Dodaj export do pliku np excel i pdf
-	// 2. Sporobj zrobic baze slow offline
+	// 2. Sporobj zrobic baze slow offline, sciagnie z bazy danych porowananie i dopisanie
 	// 3. Odczytaj z pliku strony www, pobierz z wszystkich slowa i automatycznie zapisz do bazy
 	// 4. Rozbij na w¹tki 
 	// 5. Jak sciaga strone to rozbij tak aby by³o widac slowa w InputField
+	// 6. Dopisz funkcje testujace 
 	//**********************************************************************************************
 	
 	static GUI GUI;
@@ -64,7 +65,7 @@ public class Start extends Application
 		Scene scene = new Scene(GUI.getPaneMain(), WIDTH, HEIGH);
 
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 	}
 
