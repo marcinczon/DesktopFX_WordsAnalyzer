@@ -4,73 +4,54 @@ import java.util.Comparator;
 
 public class Data
 {
-
-	private int Counter = 1;
-	private int SourceWordLength = 0;
-	private int TranslateWordLength = 0;
-	private int ColumnToFilter = 1; // 1 - source 2 - translated
-	private String Source = "null";
-	private String Translate = "null";
+	private int counter = 1;
+	private int sourceWordLength = 0;
+	private int translateWordLength = 0;
+	private String source = "null";
+	private String translate = "null";
 
 	Data(String source)
 	{
-		this.Source = source;
+		this.source = source;
 		InitParameters();
 	}
 
 	Data(String source, String translate)
 	{
-		this.Source = source;
-		this.Translate = translate;
+		this.source = source;
+		this.translate = translate;
 		InitParameters();
 	}
 
 	Data(int counter, String source, String translate)
 	{
-		if(counter>1)
-		this.Counter = counter;
-		this.Source = source;
-		this.Translate = translate;
+		if (counter > 1)
+			this.counter = counter;
+		this.source = source;
+		this.translate = translate;
 		InitParameters();
 	}
 
 	private void InitParameters()
 	{
-		SourceWordLength = Source.length();
-		TranslateWordLength = Translate.length();
-	}
-
-	public boolean isInLengthRange(int min, int max)
-	{
-		if (ColumnToFilter == 1)
-		{
-			return min <= SourceWordLength && SourceWordLength <= max;
-		} else if (ColumnToFilter == 2)
-		{
-			return min <= TranslateWordLength && TranslateWordLength <= max;
-		} else
-			return false;
-	}
-
-	public boolean isInCounterRange(int min, int max)
-	{
-		return min <= Counter && Counter <= max;
+		sourceWordLength = source.length();
+		translateWordLength = translate.length();
 	}
 
 	public void increseCounter()
 	{
-		Counter++;
+		counter++;
 	}
 
 	public int getCounter()
 	{
-		return Counter;
+		return counter;
 	}
 
 	public void setTranslateWord(String translateWord)
 	{
-		this.Translate = translateWord;
-		TranslateWordLength = translateWord.length();
+		this.translate = translateWord;
+		translateWordLength = translateWord.length();
 	}
 
 	@Override
@@ -78,7 +59,7 @@ public class Data
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Source == null) ? 0 : Source.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
 		return result;
 	}
 
@@ -92,34 +73,29 @@ public class Data
 		if (getClass() != obj.getClass())
 			return false;
 		Data other = (Data) obj;
-		if (Source == null)
+		if (source == null)
 		{
-			if (other.Source != null)
+			if (other.source != null)
 				return false;
-		} else if (!Source.equals(other.Source))
+		} else if (!source.equals(other.source))
 			return false;
 		return true;
 	}
 
 	public String getSource()
 	{
-		return Source;
+		return source;
 	}
 
 	public String getTranslate()
 	{
-		return Translate;
-	}
-
-	public void setColumnToFilter(int columnToFilter)
-	{
-		ColumnToFilter = columnToFilter;
+		return translate;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "OutData [Counter=" + Counter + ", Source=" + Source + ", Translate=" + Translate + "]";
+		return "OutData [Counter=" + counter + ", Source=" + source + ", Translate=" + translate + "]";
 	}
 
 	public static class SourceComparator implements Comparator<Data>
@@ -127,7 +103,7 @@ public class Data
 		@Override
 		public int compare(Data data1, Data data2)
 		{
-			return data1.Source.compareTo(data2.Source);
+			return data1.source.compareTo(data2.source);
 		}
 	}
 
@@ -136,7 +112,7 @@ public class Data
 		@Override
 		public int compare(Data data1, Data data2)
 		{
-			return data1.Translate.compareTo(data2.Translate);
+			return data1.translate.compareTo(data2.translate);
 		}
 	}
 
@@ -145,8 +121,18 @@ public class Data
 		@Override
 		public int compare(Data data1, Data data2)
 		{
-			return Integer.toString(data1.Counter).compareTo(Integer.toString(data2.Counter));
+			return Integer.toString(data1.counter).compareTo(Integer.toString(data2.counter));
 		}
+	}
+
+	public int getSourceWordLength()
+	{
+		return sourceWordLength;
+	}
+
+	public int getTranslateWordLength()
+	{
+		return translateWordLength;
 	}
 
 }

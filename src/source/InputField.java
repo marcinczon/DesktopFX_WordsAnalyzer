@@ -10,10 +10,14 @@ import javafx.scene.control.TextArea;
 
 public class InputField
 {
-	TextArea inputField;
+	
+	private TextArea inputField;
 
-	// Referencje do innych klas
-	Map<String, Data> outData;
+	// ****************************
+	// Referencje
+	// ****************************
+	
+	private Map<String, Data> outData;
 
 	public InputField(double heigh, double width)
 	{
@@ -30,10 +34,8 @@ public class InputField
 	{
 		return inputField.getText();
 	}
-
-	public void writeAllWords()
+	private String replaceSpecialSing(String tempString)
 	{
-		String tempString = inputField.getText().toLowerCase();
 		tempString = tempString.replaceAll("ą", "a");
 		tempString = tempString.replaceAll("ć", "c");
 		tempString = tempString.replaceAll("ę", "e");
@@ -42,6 +44,12 @@ public class InputField
 		tempString = tempString.replaceAll("ń", "n");
 		tempString = tempString.replaceAll("ż", "z");
 		tempString = tempString.replaceAll("ź", "z");
+		return tempString;
+	}
+	public void writeAllWords()
+	{
+		String tempString = inputField.getText().toLowerCase();
+		tempString = replaceSpecialSing(tempString);
 		
 		tempString = tempString.replaceAll("[^a-zA-Z]", " ").toLowerCase();
 		for(int i =0 ; i < 10 ; i++)

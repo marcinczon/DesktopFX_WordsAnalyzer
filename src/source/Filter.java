@@ -2,19 +2,47 @@ package source;
 
 public class Filter
 {
-	private int minLengthRange = 1, maxLengthRange = 99;
-	private int minCounterRange = 1, maxCounterRange = 9999;
-	private int column = 1;
+	private int minLengthRange = 1;
+	private int maxLengthRange = 99;
+	private int minCounterRange = 1;
+	private int maxCounterRange = 9999;
+	private FilterSetting filterSetting;
 
-	public boolean isInFilterRange(Data data)
+	public Filter()
 	{
-		if (data.isInLengthRange(getMinLengthRange(), getMaxLengthRange()) && data.isInCounterRange(getMinCounterRange(), getMaxCounterRange()))
+		filterSetting = FilterSetting.KOLUMN_SOURCE;
+	}
+
+	public void setKolumn(FilterSetting filterSetting)
+	{
+		this.filterSetting = filterSetting;
+	}
+
+	public boolean isInLengthRange(Data data)
+	{
+		if (filterSetting.equals(FilterSetting.KOLUMN_SOURCE))
 		{
-			return true;
+			return minLengthRange <= data.getSourceWordLength() && data.getSourceWordLength() <= maxLengthRange;
+		} else if (filterSetting.equals(FilterSetting.KOLUMN_TRANSLATE))
+		{
+			return minLengthRange <= data.getTranslateWordLength() && data.getTranslateWordLength() <= maxLengthRange;
 		} else
 		{
 			return false;
 		}
+	}
+
+	public boolean isInCounterRange(Data data)
+	{
+		return minCounterRange <= data.getCounter() && data.getCounter() <= maxCounterRange;
+	}
+
+	public boolean isInFilterRange(Data data)
+	{
+		if (isInCounterRange(data) && isInLengthRange(data))
+			return true;
+		else
+			return false;
 	}
 
 	public void setMinLengthRange(int minRange)
@@ -55,15 +83,5 @@ public class Filter
 	public int getMaxCounterRange()
 	{
 		return maxCounterRange;
-	}
-
-	public int getColumn()
-	{
-		return column;
-	}
-
-	public void setColumn(int column)
-	{
-		this.column = column;
 	}
 }

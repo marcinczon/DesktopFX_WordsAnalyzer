@@ -35,82 +35,69 @@ import javafx.stage.Popup;
 
 public class GUI
 {
-	double width;
-	double heigh;
+	// ****************************
+	// Elementy interfejsu
+	// ****************************
+	
+	private double width;
+	private double heigh;
 
-	Pane paneMain;
+	private ScrollPane scrollPaneLeft = new ScrollPane();
+	private ScrollPane scrollPaneRight = new ScrollPane();
 
-	ScrollPane scrollPaneLeft;
-	ScrollPane scrollPaneRight;
+	private BorderPane boarderPane = new BorderPane();
+	
+	private Pane paneMain = new Pane();
+	private Pane paneLeft = new Pane();
+	private Pane paneRight = new Pane();
+	private Pane paneTop = new Pane();
+	private Pane paneBottom = new Pane();
 
-	Pane paneLeft;
-	Pane paneRight;
-	Pane paneTop;
-	Pane paneBottom;
+	private HBox hboxBottom1 = new HBox();
+	private HBox hboxBottom2 = new HBox();
+	private HBox hboxBottom3 = new HBox();
 
-	HBox hboxBottom1;
-	HBox hboxBottom2;
-	HBox hboxBottom3;
-	HBox hboxBottom4;
-	VBox vboxBottom1;
-	VBox vboxBottom2;
+	private VBox vboxBottom1 = new VBox();
+	private VBox vboxBottom2 = new VBox();
 
-	TextField inputText;
-	BorderPane boarderPane;
+	private Button buttonAnalyze = new Button();
+	private Button buttonUpdate = new Button();
+	private Button buttonDownloadWeb = new Button("Take Web Text");
+	private Button buttonTranslate = new Button();
+	private Button buttonExportCSV = new Button();
+	private Button buttonExportDB = new Button();
 
-	// Dodatkowe elementy
-	Button buttonAnalyze;
-	Button buttonUpdate;
-	Button buttonDownloadWeb;
-	Button buttonTranslate;
-	Button buttonExportCSV;
-	Button buttonExportDB;
+	private Label couterLabel = new Label();
+	private Label textLabel1 = new Label();
+	private Label textLabel2 = new Label();
+	
+	private TextField minWordLength = new TextField();
+	private TextField maxWordLength = new TextField();
+	private TextField minCounter = new TextField();
+	private TextField maxCounter = new TextField();
+	private TextField webTextField = new TextField();
+	static  TextField googleCodeTextField = new TextField();
+	private TextField setLanguage = new TextField();
 
-	Label couterLabel;
-	Label textLabel1;
-	Label textLabel2;
+	private Alert alert;
 
-	TextField minWordLength;
-	TextField maxWordLength;
-	TextField minCounter;
-	TextField maxCounter;
-	TextField webTextField;
-	static TextField googleCodeTextField;
-	TextField setLanguage;
+	private ToggleGroup groupFilterChoose = new ToggleGroup();
+	private RadioButton radioSource = new RadioButton();
+	private RadioButton radioTranslate = new RadioButton();
 
-	Alert alert;
-
-	ToggleGroup groupFilterChoose;
-	RadioButton radioSource;
-	RadioButton radioTranslate;
-
-	// Referencje do innych klas
-	InputField inputField;
-	OutputField outputField;
-	Filter filter = new Filter();
-	ExportCVS exportCVS;
-	ExportDataBase exportDataBase;
-	Map<String, Data> outData;
+	//****************************
+	// 		   Referencje 
+	//****************************
+	
+	private InputField inputField;
+	private OutputField outputField;
+	private Filter filter;
+	private ExportCVS exportCVS;
+	private ExportDataBase exportDataBase;
+	private Map<String, Data> outData;
 
 	public GUI(double width, double heigh)
 	{
-		scrollPaneLeft = new ScrollPane();
-		scrollPaneRight = new ScrollPane();
-
-		paneMain = new Pane();
-
-		paneLeft = new Pane();
-		paneRight = new Pane();
-		paneTop = new Pane();
-		paneBottom = new Pane();
-		hboxBottom1 = new HBox();
-		hboxBottom2 = new HBox();
-		hboxBottom3 = new HBox();
-		hboxBottom4 = new HBox();
-		vboxBottom1 = new VBox();
-		vboxBottom2 = new VBox();
-
-		boarderPane = new BorderPane();
 
 		this.width = width;
 		this.heigh = heigh;
@@ -121,7 +108,6 @@ public class GUI
 		// Top Pane
 		// ******************
 
-		buttonDownloadWeb = new Button("Take Web Text");
 		buttonDownloadWeb.setLayoutX(10);
 		buttonDownloadWeb.setLayoutY(5);
 		buttonDownloadWeb.setPrefSize((width / 2) - 10, 40);
@@ -311,11 +297,10 @@ public class GUI
 				document.select("br").append("\\n");
 				document.select("p").prepend("\\n\\n");
 				result = document.html().replaceAll("\\s+", " ");
-				// result = result.replaceAll("\\S","");
 				result = Jsoup.clean(result, "", Whitelist.simpleText(), new Document.OutputSettings().prettyPrint(false));
 
 				System.out.println(result);
-				inputField.inputField.appendText(result);
+				inputField.getInputField().appendText(result);
 			}
 		});
 
@@ -398,11 +383,11 @@ public class GUI
 				{
 					if (radioSource.isSelected())
 					{
-						filter.setColumn(1);
+						filter.setKolumn(FilterSetting.KOLUMN_SOURCE);
 
 					} else if (radioTranslate.isSelected())
 					{
-						filter.setColumn(2);
+						filter.setKolumn(FilterSetting.KOLUMN_TRANSLATE);
 					}
 				}
 			}
@@ -489,6 +474,61 @@ public class GUI
 	public void GUIsetReferenceExportDataBase(ExportDataBase exportDataBase)
 	{
 		this.exportDataBase = exportDataBase;
+	}
+
+	public TextField getGoogleCodeTextField()
+	{
+		return googleCodeTextField;
+	}
+
+	public void setGoogleCodeTextField(TextField googleCodeTextField)
+	{
+		this.googleCodeTextField = googleCodeTextField;
+	}
+
+	public Pane getPaneLeft()
+	{
+		return paneLeft;
+	}
+
+	public void setPaneLeft(Pane paneLeft)
+	{
+		this.paneLeft = paneLeft;
+	}
+
+	public Pane getPaneRight()
+	{
+		return paneRight;
+	}
+
+	public void setPaneRight(Pane paneRight)
+	{
+		this.paneRight = paneRight;
+	}
+
+	public Pane getPaneTop()
+	{
+		return paneTop;
+	}
+
+	public void setPaneTop(Pane paneTop)
+	{
+		this.paneTop = paneTop;
+	}
+
+	public Pane getPaneBottom()
+	{
+		return paneBottom;
+	}
+
+	public void setPaneBottom(Pane paneBottom)
+	{
+		this.paneBottom = paneBottom;
+	}
+
+	public void setPaneMain(Pane paneMain)
+	{
+		this.paneMain = paneMain;
 	}
 
 }

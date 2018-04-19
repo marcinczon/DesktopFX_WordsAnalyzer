@@ -10,29 +10,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OutputField
 {
+	private TableView<Data> outputField = new TableView<Data>();
+	private TableColumn<Data, Integer> counter = new TableColumn<Data, Integer>("Counter");
+	private TableColumn<Data, String> source = new TableColumn<Data, String>("Source");
+	private TableColumn<Data, String> translate = new TableColumn<Data, String>("Translate");
 
-	// Referencje do innych klas
+	// ****************************
+	// Referencje
+	// ****************************
+
 	Map<String, Data> outData;
 	Filter filter;
-
-
-	TableView<Data> outputField = new TableView<Data>();
-	TableColumn<Data, Integer> Counter = new TableColumn<Data, Integer>("Counter");
-	TableColumn<Data, String> Source = new TableColumn<Data, String>("Source");
-	TableColumn<Data, String> Translate = new TableColumn<Data, String>("Translate");
 
 	public OutputField(double heigh, double width)
 	{
 		outputField.setEditable(true);
 
-		Counter.setCellValueFactory(new PropertyValueFactory<Data, Integer>("Counter"));
-		Counter.setPrefWidth(100);
-		Source.setCellValueFactory(new PropertyValueFactory<Data, String>("Source"));
-		Source.setPrefWidth(150);
-		Translate.setCellValueFactory(new PropertyValueFactory<Data, String>("Translate"));
-		Translate.setPrefWidth(150);
+		counter.setCellValueFactory(new PropertyValueFactory<Data, Integer>("Counter"));
+		counter.setPrefWidth(100);
+		source.setCellValueFactory(new PropertyValueFactory<Data, String>("Source"));
+		source.setPrefWidth(150);
+		translate.setCellValueFactory(new PropertyValueFactory<Data, String>("Translate"));
+		translate.setPrefWidth(150);
 
-		outputField.getColumns().addAll(Counter, Source, Translate);
+		outputField.getColumns().addAll(counter, source, translate);
 		outputField.setPrefSize(width, heigh);
 	}
 
@@ -50,8 +51,7 @@ public class OutputField
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
-			tempData.setColumnToFilter(filter.getColumn());
-			if(filter.isInFilterRange(tempData))
+			if (filter.isInFilterRange(tempData))
 			{
 				outputField.getItems().add(tempData);
 			}
@@ -79,6 +79,5 @@ public class OutputField
 	{
 		this.filter = filter;
 	}
-
 
 }

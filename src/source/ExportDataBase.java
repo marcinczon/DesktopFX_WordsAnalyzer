@@ -8,24 +8,20 @@ import java.sql.*;
 
 public class ExportDataBase
 {
-
 	private Connection connection;
 	private Statement statement;
 	private DatabaseMetaData databaseMetaData;
-	ResultSet resultSet;
-
-	// Reference
-
-	private Filter filter;
-	private Map<String, Data> dataMap;
+	private ResultSet resultSet;
 
 	private String tableName = "";
 	private int increaseCounter = 0;
 
-	public ExportDataBase()
-	{
+	// ****************************
+	// Referencje
+	// ****************************
 
-	}
+	private Filter filter;
+	private Map<String, Data> dataMap;
 
 	public boolean Connect()
 	{

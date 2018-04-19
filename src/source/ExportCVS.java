@@ -13,10 +13,10 @@ import javafx.stage.FileChooser;
 
 public class ExportCVS
 {
-	private String path = "Data.csv";
-	private PrintWriter pw;
-	private StringBuilder sb;
-
+	// ****************************
+	// Referencje
+	// ****************************
+	
 	private Map<String, Data> dataMap;
 	private Filter filter;
 
@@ -44,18 +44,17 @@ public class ExportCVS
 		for (String key : keys)
 		{
 			tempData = dataMap.get(key);
-			tempData.setColumnToFilter(filter.getColumn());
-			if(tempData!=null)
-			if (filter.isInFilterRange(tempData))
-			{
-				System.out.println("CSV: " + tempData.toString());
-				sb.append(String.format("%8d", tempData.getCounter()));
-				sb.append(',');
-				sb.append(String.format("%20s", tempData.getSource()));
-				sb.append(',');
-				sb.append(String.format("%20s", tempData.getTranslate()));
-				sb.append('\n');
-			}
+			if (tempData != null)
+				if (filter.isInFilterRange(tempData))
+				{
+					System.out.println("CSV: " + tempData.toString());
+					sb.append(String.format("%8d", tempData.getCounter()));
+					sb.append(',');
+					sb.append(String.format("%20s", tempData.getSource()));
+					sb.append(',');
+					sb.append(String.format("%20s", tempData.getTranslate()));
+					sb.append('\n');
+				}
 
 		}
 		fileWriter.write(sb.toString());

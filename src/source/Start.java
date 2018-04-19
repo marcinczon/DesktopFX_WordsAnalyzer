@@ -8,8 +8,14 @@ import javafx.stage.Stage;
 
 public class Start extends Application
 {
-	// Dodaj export do pliku np excel i pdf
-	// Sporobj zrobic baze slow offline
+	//**********************************************************************************************
+	// 1. Dodaj export do pliku np excel i pdf
+	// 2. Sporobj zrobic baze slow offline
+	// 3. Odczytaj z pliku strony www, pobierz z wszystkich slowa i automatycznie zapisz do bazy
+	// 4. Rozbij na w¹tki 
+	// 5. Jak sciaga strone to rozbij tak aby by³o widac slowa w InputField
+	//**********************************************************************************************
+	
 	static GUI GUI;
 	static InputField INPUT_FIELD;
 	static OutputField OUTPUT_FIELD;
@@ -27,10 +33,10 @@ public class Start extends Application
 	{
 		GUI = new GUI(HEIGH, WIDTH);
 
-		INPUT_FIELD = new InputField(GUI.paneLeft.getPrefHeight(), GUI.paneLeft.getPrefWidth());
+		INPUT_FIELD = new InputField(GUI.getPaneLeft().getPrefHeight(), GUI.getPaneLeft().getPrefWidth());
 		INPUT_FIELD.setReferenceOutData(DATA_MAP);
 
-		OUTPUT_FIELD = new OutputField(GUI.paneRight.getPrefHeight(), GUI.paneRight.getPrefWidth());
+		OUTPUT_FIELD = new OutputField(GUI.getPaneRight().getPrefHeight(), GUI.getPaneRight().getPrefWidth());
 		OUTPUT_FIELD.setReferenceOutData(DATA_MAP);
 		OUTPUT_FIELD.setReferenceFilter(FILTER);
 		
