@@ -2,7 +2,7 @@ package source;
 
 import java.util.Comparator;
 
-public class OutData
+public class Data
 {
 
 	private int Counter = 1;
@@ -12,20 +12,20 @@ public class OutData
 	private String Source = "null";
 	private String Translate = "null";
 
-	OutData(String source)
+	Data(String source)
 	{
 		this.Source = source;
 		InitParameters();
 	}
 
-	OutData(String source, String translate)
+	Data(String source, String translate)
 	{
 		this.Source = source;
 		this.Translate = translate;
 		InitParameters();
 	}
 
-	OutData(int counter, String source, String translate)
+	Data(int counter, String source, String translate)
 	{
 		if(counter>1)
 		this.Counter = counter;
@@ -91,7 +91,7 @@ public class OutData
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OutData other = (OutData) obj;
+		Data other = (Data) obj;
 		if (Source == null)
 		{
 			if (other.Source != null)
@@ -122,28 +122,28 @@ public class OutData
 		return "OutData [Counter=" + Counter + ", Source=" + Source + ", Translate=" + Translate + "]";
 	}
 
-	public static class SourceComparator implements Comparator<OutData>
+	public static class SourceComparator implements Comparator<Data>
 	{
 		@Override
-		public int compare(OutData data1, OutData data2)
+		public int compare(Data data1, Data data2)
 		{
 			return data1.Source.compareTo(data2.Source);
 		}
 	}
 
-	public static class TranslateComparator implements Comparator<OutData>
+	public static class TranslateComparator implements Comparator<Data>
 	{
 		@Override
-		public int compare(OutData data1, OutData data2)
+		public int compare(Data data1, Data data2)
 		{
 			return data1.Translate.compareTo(data2.Translate);
 		}
 	}
 
-	public static class CounterComparator implements Comparator<OutData>
+	public static class CounterComparator implements Comparator<Data>
 	{
 		@Override
-		public int compare(OutData data1, OutData data2)
+		public int compare(Data data1, Data data2)
 		{
 			return Integer.toString(data1.Counter).compareTo(Integer.toString(data2.Counter));
 		}

@@ -10,37 +10,44 @@ public class Start extends Application
 {
 	// Dodaj export do pliku np excel i pdf
 	// Sporobj zrobic baze slow offline
-	static GUI gui;
-	static InputField inputField;
-	static OutputField outputField;
-	static Map<String, OutData> outData = new HashMap<>();
-	static Filter filter = new Filter();
-	static ExportCVS exportCVS = new ExportCVS();
+	static GUI GUI;
+	static InputField INPUT_FIELD;
+	static OutputField OUTPUT_FIELD;
+	static Filter FILTER = new Filter();
+	static ExportCVS EXPORT_CSV = new ExportCVS();
+	static ExportDataBase EXPORT_DATA_BASE = new ExportDataBase();
+	
+	static Map<String, Data> DATA_MAP = new HashMap<>();
 
-	static int heigh = 800;
-	static int width = 800;
+
+	static int HEIGH = 800;
+	static int WIDTH = 800;
 
 	public static void main(String[] args)
 	{
-		gui = new GUI(heigh, width);
+		GUI = new GUI(HEIGH, WIDTH);
 
-		inputField = new InputField(gui.paneLeft.getPrefHeight(), gui.paneLeft.getPrefWidth());
-		inputField.setReferenceOutData(outData);
+		INPUT_FIELD = new InputField(GUI.paneLeft.getPrefHeight(), GUI.paneLeft.getPrefWidth());
+		INPUT_FIELD.setReferenceOutData(DATA_MAP);
 
-		outputField = new OutputField(gui.paneRight.getPrefHeight(), gui.paneRight.getPrefWidth());
-		outputField.setReferenceOutData(outData);
-		outputField.setReferenceFilter(filter);
+		OUTPUT_FIELD = new OutputField(GUI.paneRight.getPrefHeight(), GUI.paneRight.getPrefWidth());
+		OUTPUT_FIELD.setReferenceOutData(DATA_MAP);
+		OUTPUT_FIELD.setReferenceFilter(FILTER);
 		
-		exportCVS.setReferenceOutData(outData);
-		exportCVS.setReferenceFilter(filter);
+		EXPORT_CSV.setReferenceDataMap(DATA_MAP);
+		EXPORT_CSV.setReferenceFilter(FILTER);
+		
+		EXPORT_DATA_BASE.setReferenceDataMap(DATA_MAP);
+		EXPORT_DATA_BASE.setRefrenceFilter(FILTER);
 
-		gui.GUIsetReferenceData(inputField, outputField);
-		gui.GUIsetReferenceOutData(outData);
-		gui.GUIsetReferenceFilter(filter);
-		gui.GUIsetReferenceExportCVS(exportCVS);
+		GUI.GUIsetReferenceData(INPUT_FIELD, OUTPUT_FIELD);
+		GUI.GUIsetReferenceOutData(DATA_MAP);
+		GUI.GUIsetReferenceFilter(FILTER);
+		GUI.GUIsetReferenceExportCVS(EXPORT_CSV);
+		GUI.GUIsetReferenceExportDataBase(EXPORT_DATA_BASE);
 
-		gui.addToLeftPane(inputField.getInputField());
-		gui.addToRighttPane(outputField.getOutputField());
+		GUI.addToLeftPane(INPUT_FIELD.getInputField());
+		GUI.addToRighttPane(OUTPUT_FIELD.getOutputField());
 
 		launch();
 	}
@@ -48,7 +55,7 @@ public class Start extends Application
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		Scene scene = new Scene(gui.getPaneMain(), width, heigh);
+		Scene scene = new Scene(GUI.getPaneMain(), WIDTH, HEIGH);
 
 		stage.setScene(scene);
 		stage.setResizable(false);

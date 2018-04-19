@@ -13,7 +13,7 @@ public class InputField
 	TextArea inputField;
 
 	// Referencje do innych klas
-	Map<String, OutData> outData;
+	Map<String, Data> outData;
 
 	public InputField(double heigh, double width)
 	{
@@ -34,12 +34,12 @@ public class InputField
 	public void writeAllWords()
 	{
 		String tempString = inputField.getText().toLowerCase();
-		tempString = tempString.replaceAll("¹", "a");
-		tempString = tempString.replaceAll("æ", "c");
-		tempString = tempString.replaceAll("ê", "e");
-		tempString = tempString.replaceAll("³", "l");
-		tempString = tempString.replaceAll("ó", "o");
-		tempString = tempString.replaceAll("ñ", "n");
+		tempString = tempString.replaceAll("ï¿½", "a");
+		tempString = tempString.replaceAll("ï¿½", "c");
+		tempString = tempString.replaceAll("ï¿½", "e");
+		tempString = tempString.replaceAll("ï¿½", "l");
+		tempString = tempString.replaceAll("ï¿½", "o");
+		tempString = tempString.replaceAll("ï¿½", "n");
 		
 		tempString = tempString.replaceAll("[^a-zA-Z]", " ").toLowerCase();
 		for(int i =0 ; i < 10 ; i++)
@@ -54,7 +54,7 @@ public class InputField
 		{
 			if (!outData.containsKey(word))
 			{
-				outData.put(word, new OutData(word));
+				outData.put(word, new Data(word));
 			} else
 			{
 				outData.get(word).increseCounter();
@@ -63,7 +63,7 @@ public class InputField
 
 	}
 
-	public void setReferenceOutData(Map<String, OutData> outData)
+	public void setReferenceOutData(Map<String, Data> outData)
 	{
 		this.outData = outData;
 	}

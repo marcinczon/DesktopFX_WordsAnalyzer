@@ -12,31 +12,31 @@ public class OutputField
 {
 
 	// Referencje do innych klas
-	Map<String, OutData> outData;
+	Map<String, Data> outData;
 	Filter filter;
 
 
-	TableView<OutData> outputField = new TableView<OutData>();
-	TableColumn<OutData, Integer> Counter = new TableColumn<OutData, Integer>("Counter");
-	TableColumn<OutData, String> Source = new TableColumn<OutData, String>("Source");
-	TableColumn<OutData, String> Translate = new TableColumn<OutData, String>("Translate");
+	TableView<Data> outputField = new TableView<Data>();
+	TableColumn<Data, Integer> Counter = new TableColumn<Data, Integer>("Counter");
+	TableColumn<Data, String> Source = new TableColumn<Data, String>("Source");
+	TableColumn<Data, String> Translate = new TableColumn<Data, String>("Translate");
 
 	public OutputField(double heigh, double width)
 	{
 		outputField.setEditable(true);
 
-		Counter.setCellValueFactory(new PropertyValueFactory<OutData, Integer>("Counter"));
+		Counter.setCellValueFactory(new PropertyValueFactory<Data, Integer>("Counter"));
 		Counter.setPrefWidth(100);
-		Source.setCellValueFactory(new PropertyValueFactory<OutData, String>("Source"));
+		Source.setCellValueFactory(new PropertyValueFactory<Data, String>("Source"));
 		Source.setPrefWidth(150);
-		Translate.setCellValueFactory(new PropertyValueFactory<OutData, String>("Translate"));
+		Translate.setCellValueFactory(new PropertyValueFactory<Data, String>("Translate"));
 		Translate.setPrefWidth(150);
 
 		outputField.getColumns().addAll(Counter, Source, Translate);
 		outputField.setPrefSize(width, heigh);
 	}
 
-	public TableView<OutData> getOutputField()
+	public TableView<Data> getOutputField()
 	{
 		return outputField;
 	}
@@ -46,7 +46,7 @@ public class OutputField
 		Set<String> keys = outData.keySet();
 		outputField.getItems().clear();
 
-		OutData tempData;
+		Data tempData;
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
@@ -62,7 +62,7 @@ public class OutputField
 	public void translateTable(String Language)
 	{
 		Set<String> keys = outData.keySet();
-		OutData tempData;
+		Data tempData;
 		for (String key : keys)
 		{
 			tempData = outData.get(key);
@@ -70,7 +70,7 @@ public class OutputField
 		}
 	}
 
-	public void setReferenceOutData(Map<String, OutData> outData)
+	public void setReferenceOutData(Map<String, Data> outData)
 	{
 		this.outData = outData;
 	}

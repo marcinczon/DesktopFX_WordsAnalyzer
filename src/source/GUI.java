@@ -62,6 +62,7 @@ public class GUI
 	Button buttonDownloadWeb;
 	Button buttonTranslate;
 	Button buttonExportCSV;
+	Button buttonExportDB;
 
 	Label couterLabel;
 	Label textLabel1;
@@ -86,7 +87,8 @@ public class GUI
 	OutputField outputField;
 	Filter filter = new Filter();
 	ExportCVS exportCVS;
-	Map<String, OutData> outData;
+	ExportDataBase exportDataBase;
+	Map<String, Data> outData;
 
 	public GUI(double width, double heigh)
 	{
@@ -162,8 +164,10 @@ public class GUI
 		buttonAnalyze.setPrefWidth(100);
 		buttonUpdate = new Button("Update");
 		buttonUpdate.setPrefWidth(100);
-		buttonExportCSV = new Button("Export");
+		buttonExportCSV = new Button("Export CSV");
 		buttonExportCSV.setPrefWidth(100);
+		buttonExportDB = new Button("Export DB");
+		buttonExportDB.setPrefWidth(100);
 
 		textLabel1 = new Label("Length:    ");
 		textLabel1.setStyle(style);
@@ -190,7 +194,7 @@ public class GUI
 
 		hboxBottom1.setAlignment(Pos.BASELINE_RIGHT);
 		hboxBottom1.setSpacing(1);
-		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV);
+		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV, buttonExportDB);
 		hboxBottom2.getChildren().addAll(textLabel1, minWordLength, maxWordLength);
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
@@ -273,6 +277,16 @@ public class GUI
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		});
+		buttonExportDB.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event)
+			{
+				exportDataBase.Connect();
+				exportDataBase.createTable(webTextField.getText().replaceAll("[^a-zA-Z]", ""));
+				exportDataBase.saveTable();
 			}
 		});
 
@@ -443,7 +457,7 @@ public class GUI
 		paneBottom.getChildren().add(shape);
 	}
 
-	public void GUIsetReferenceOutData(Map<String, OutData> outData)
+	public void GUIsetReferenceOutData(Map<String, Data> outData)
 	{
 		this.outData = outData;
 	}
@@ -451,6 +465,11 @@ public class GUI
 	public void GUIsetReferenceExportCVS(ExportCVS exportCVS)
 	{
 		this.exportCVS = exportCVS;
+	}
+
+	public void GUIsetReferenceExportDataBase(ExportDataBase exportDataBase)
+	{
+		this.exportDataBase = exportDataBase;
 	}
 
 }
