@@ -20,7 +20,7 @@ public class ExportDataBase
 	private Map<String, Data> dataMap;
 
 	private String tableName = "";
-	private int increaseCounter=0;
+	private int increaseCounter = 0;
 
 	public ExportDataBase()
 	{
@@ -72,8 +72,8 @@ public class ExportDataBase
 
 			} catch (SQLException e)
 			{
-				System.err.println("Table aLready exist: "+ tableName);
-				//System.err.println(e.toString());
+				System.err.println("Table aLready exist: " + tableName);
+				// System.err.println(e.toString());
 			}
 
 		} else
@@ -88,9 +88,9 @@ public class ExportDataBase
 		{
 			resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE SOURCE = '" + source + "'");
 			if (resultSet.next())
-			{			
+			{
 				increaseCounter = resultSet.getInt("COUNTER");
-				//System.out.println(sourcee + " " + increaseCounter);
+				// System.out.println(sourcee + " " + increaseCounter);
 				return true;
 			} else
 			{
@@ -107,7 +107,7 @@ public class ExportDataBase
 	{
 		try
 		{
-			String querry = String.format("UPDATE " + tableName + " SET COUNTER=%d WHERE SOURCE='%s' ", increaseCounter+counter, source);
+			String querry = String.format("UPDATE " + tableName + " SET COUNTER=%d WHERE SOURCE='%s' ", increaseCounter + counter, source);
 			statement.executeUpdate(querry);
 
 			return true;
@@ -139,14 +139,17 @@ public class ExportDataBase
 		System.out.println();
 		for (Data data : dataMap.values())
 		{
-			if (isExist(data.getSource()))
+			if (!data.getSource().equals(null) && !data.getSource().equals("") && filter.isInFilterRange(data))
 			{
-				updateRecord(data.getCounter(), data.getSource());
-				System.out.println("UP DATE: " + data.getSource());
-			} else
-			{
-				addRecord(data.getCounter(), data.getSource(), data.getTranslate());
-				System.out.println("CREATED: " + data.getSource());
+				if (isExist(data.getSource()))
+				{
+					updateRecord(data.getCounter(), data.getSource());
+					System.out.println("UP DATE: " + data.getSource());
+				} else
+				{
+					addRecord(data.getCounter(), data.getSource(), data.getTranslate());
+					System.out.println("CREATED: " + data.getSource());
+				}
 			}
 		}
 	}

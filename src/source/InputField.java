@@ -34,12 +34,14 @@ public class InputField
 	public void writeAllWords()
 	{
 		String tempString = inputField.getText().toLowerCase();
-		tempString = tempString.replaceAll("�", "a");
-		tempString = tempString.replaceAll("�", "c");
-		tempString = tempString.replaceAll("�", "e");
-		tempString = tempString.replaceAll("�", "l");
-		tempString = tempString.replaceAll("�", "o");
-		tempString = tempString.replaceAll("�", "n");
+		tempString = tempString.replaceAll("ą", "a");
+		tempString = tempString.replaceAll("ć", "c");
+		tempString = tempString.replaceAll("ę", "e");
+		tempString = tempString.replaceAll("ł", "l");
+		tempString = tempString.replaceAll("ó", "o");
+		tempString = tempString.replaceAll("ń", "n");
+		tempString = tempString.replaceAll("ż", "z");
+		tempString = tempString.replaceAll("ź", "z");
 		
 		tempString = tempString.replaceAll("[^a-zA-Z]", " ").toLowerCase();
 		for(int i =0 ; i < 10 ; i++)

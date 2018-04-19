@@ -51,7 +51,7 @@ public class OutputField
 		{
 			tempData = outData.get(key);
 			tempData.setColumnToFilter(filter.getColumn());
-			if (tempData.isInLengthRange(filter.getMinLengthRange(), filter.getMaxLengthRange()) && tempData.isInCounterRange(filter.getMinCounterRange(), filter.getMaxCounterRange()))
+			if(filter.isInFilterRange(tempData))
 			{
 				outputField.getItems().add(tempData);
 			}

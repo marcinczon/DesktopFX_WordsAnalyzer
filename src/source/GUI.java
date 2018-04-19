@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Optional;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -284,9 +286,7 @@ public class GUI
 			@Override
 			public void handle(MouseEvent event)
 			{
-				exportDataBase.Connect();
-				exportDataBase.createTable(webTextField.getText().replaceAll("[^a-zA-Z]", ""));
-				exportDataBase.saveTable();
+				showInputTextDialog();
 			}
 		});
 
@@ -413,6 +413,25 @@ public class GUI
 	private void UpdateTable()
 	{
 		outputField.updateTable();
+	}
+
+	private void showInputTextDialog()
+	{
+
+		TextInputDialog dialogExportDB = new TextInputDialog("OracleDB_Words");
+
+		dialogExportDB.setTitle("Export DB");
+		dialogExportDB.setHeaderText("Enter table name:");
+		dialogExportDB.setContentText("Name:");
+
+		Optional<String> result = dialogExportDB.showAndWait();
+
+		result.ifPresent(name ->
+		{
+			exportDataBase.Connect();
+			exportDataBase.createTable(name);
+			exportDataBase.saveTable();
+		});
 	}
 
 	public void GUIsetReferenceData(InputField inputField, OutputField outputField)

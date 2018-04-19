@@ -46,7 +46,7 @@ public class ExportCVS
 			tempData = dataMap.get(key);
 			tempData.setColumnToFilter(filter.getColumn());
 			if(tempData!=null)
-			if (tempData.isInLengthRange(filter.getMinLengthRange(), filter.getMaxLengthRange()) && tempData.isInCounterRange(filter.getMinCounterRange(), filter.getMaxCounterRange()))
+			if (filter.isInFilterRange(tempData))
 			{
 				System.out.println("CSV: " + tempData.toString());
 				sb.append(String.format("%8d", tempData.getCounter()));
