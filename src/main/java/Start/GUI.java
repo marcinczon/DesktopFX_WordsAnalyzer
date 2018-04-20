@@ -39,8 +39,8 @@ public class GUI
 	// Elementy interfejsu
 	// ****************************
 
-	private double width;
-	private double heigh;
+	private double width = 800;
+	private double heigh = 800;
 
 	private ScrollPane scrollPaneLeft = new ScrollPane();
 	private ScrollPane scrollPaneRight = new ScrollPane();
@@ -60,30 +60,31 @@ public class GUI
 	private VBox vboxBottom1 = new VBox();
 	private VBox vboxBottom2 = new VBox();
 
-	private Button buttonAnalyze = new Button();
-	private Button buttonUpdate = new Button();
+	private Button buttonAnalyze = new Button("Analyze");
+	private Button buttonUpdate = new Button("Update");
 	private Button buttonDownloadWeb = new Button("Take Web Text");
-	private Button buttonTranslate = new Button();
-	private Button buttonExportCSV = new Button();
-	private Button buttonExportDB = new Button();
+	private Button buttonTranslate = new Button("Translate");
+	private Button buttonExportCSV = new Button("Export CSV");
+	private Button buttonExportDB = new Button("Export DB");
+	private Button buttonImportDB = new Button("Import DB");
 
-	private Label couterLabel = new Label();
-	private Label textLabel1 = new Label();
-	private Label textLabel2 = new Label();
+	private Label couterLabel = new Label(String.format("%4d", 0));
+	private Label textLabel1 = new Label("Length:    ");
+	private Label textLabel2 = new Label("Counter:  ");
 
-	private TextField minWordLength = new TextField();
-	private TextField maxWordLength = new TextField();
-	private TextField minCounter = new TextField();
-	private TextField maxCounter = new TextField();
-	private TextField webTextField = new TextField();
-	static TextField googleCodeTextField = new TextField();
-	private TextField setLanguage = new TextField();
+	private TextField minWordLength = new TextField("1");
+	private TextField maxWordLength = new TextField("99");
+	private TextField minCounter = new TextField("3");
+	private TextField maxCounter = new TextField("999");
+	private TextField webTextField = new TextField("http://www.google.com");
+	static TextField googleCodeTextField = new TextField("Google Code");
+	private TextField setLanguage = new TextField("Language");
 
 	private Alert alert;
 
 	private ToggleGroup groupFilterChoose = new ToggleGroup();
-	private RadioButton radioSource = new RadioButton();
-	private RadioButton radioTranslate = new RadioButton();
+	private RadioButton radioSource = new RadioButton("Source");
+	private RadioButton radioTranslate = new RadioButton("Translate");
 
 	// ****************************
 	// Referencje
@@ -93,7 +94,8 @@ public class GUI
 	private OutputField outputField;
 	private Filter filter;
 	private ExportCVS exportCVS;
-	private ExportDataBase exportDataBase;
+	private DataBase dataBase;
+	private ImportWebPages importWebPages;
 	private Map<String, Data> outData;
 
 	public GUI(double width, double heigh)
@@ -112,24 +114,20 @@ public class GUI
 		buttonDownloadWeb.setLayoutY(5);
 		buttonDownloadWeb.setPrefSize((width / 2) - 10, 40);
 
-		webTextField = new TextField("http://www.google.com");
 		webTextField.setLayoutX(10);
 		webTextField.setLayoutY(50);
 		webTextField.setPrefSize((width / 2) - 10, 40);
 		webTextField.setAlignment(Pos.CENTER_RIGHT);
 
-		setLanguage = new TextField("Language");
 		setLanguage.setAlignment(Pos.CENTER_RIGHT);
 		setLanguage.setLayoutX(width / 2);
 		setLanguage.setLayoutY(50);
 		setLanguage.setPrefSize((width / 4) - 2, 40);
 
-		buttonTranslate = new Button("Translate");
 		buttonTranslate.setLayoutX(width / 2);
 		buttonTranslate.setLayoutY(5);
 		buttonTranslate.setPrefSize((width / 2) - 2, 40);
 
-		googleCodeTextField = new TextField("Google Code");
 		googleCodeTextField.setLayoutX(width / 2 + width / 4);
 		googleCodeTextField.setLayoutY(50);
 		googleCodeTextField.setPrefSize((width / 4) - 2, 40);
@@ -141,56 +139,43 @@ public class GUI
 		// Bottom Pane
 		// ******************
 
-		couterLabel = new Label(String.format("%4d", 0));
 		couterLabel.setStyle("-fx-font: normal  50px 'serif' ");
 		couterLabel.setTextFill(Color.BLUE);
 		couterLabel.setLayoutX(width / 2 + 300);
 		couterLabel.setLayoutY(30);
 
 		String style = "-fx-font: normal 18px 'Calibri' ";
-		buttonAnalyze = new Button("Analyze");
 		buttonAnalyze.setPrefWidth(100);
-		buttonUpdate = new Button("Update");
 		buttonUpdate.setPrefWidth(100);
-		buttonExportCSV = new Button("Export CSV");
 		buttonExportCSV.setPrefWidth(100);
-		buttonExportDB = new Button("Export DB");
 		buttonExportDB.setPrefWidth(100);
+		buttonImportDB.setPrefWidth(100);
 
-		textLabel1 = new Label("Length:    ");
 		textLabel1.setStyle(style);
 
-		minWordLength = new TextField("1");
 		minWordLength.setPrefSize(100, 15);
 		minWordLength.setAlignment(Pos.BASELINE_RIGHT);
 
-		maxWordLength = new TextField("99");
 		maxWordLength.setPrefSize(100, 15);
 		maxWordLength.setAlignment(Pos.BASELINE_RIGHT);
 
 		// ************************
 		// *** Counter Filter
 		// ************************
-		textLabel2 = new Label("Counter:  ");
 		textLabel2.setStyle(style);
-		minCounter = new TextField("1");
 		minCounter.setPrefSize(100, 15);
 		minCounter.setAlignment(Pos.BASELINE_RIGHT);
-		maxCounter = new TextField("9999");
 		maxCounter.setAlignment(Pos.BASELINE_RIGHT);
 		maxCounter.setPrefSize(100, 15);
 
 		hboxBottom1.setAlignment(Pos.BASELINE_RIGHT);
 		hboxBottom1.setSpacing(1);
-		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV, buttonExportDB);
+		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV, buttonImportDB, buttonExportDB);
 		hboxBottom2.getChildren().addAll(textLabel1, minWordLength, maxWordLength);
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
 		vboxBottom1.setSpacing(5);
 
-		groupFilterChoose = new ToggleGroup();
-		radioSource = new RadioButton("Source");
-		radioTranslate = new RadioButton("Translate");
 		radioSource.setSelected(true);
 		radioSource.setToggleGroup(groupFilterChoose);
 		radioTranslate.setToggleGroup(groupFilterChoose);
@@ -258,7 +243,6 @@ public class GUI
 					exportCVS.export();
 				} catch (IOException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -267,7 +251,14 @@ public class GUI
 		{
 			public void handle(MouseEvent event)
 			{
-				showInputTextDialog();
+				showExportTextDialog();
+			}
+		});
+		buttonImportDB.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			public void handle(MouseEvent event)
+			{
+				showImportTextDialog();
 			}
 		});
 
@@ -275,26 +266,8 @@ public class GUI
 		{
 			public void handle(MouseEvent event)
 			{
-				String html = null;
-				try
-				{
-					html = Jsoup.connect(webTextField.getText()).get().html();
-				} catch (IOException e)
-				{
-					System.err.println(e);
-				}
-				String result = "";
-
-				Document document = Jsoup.parse(html);
-				document.outputSettings(new Document.OutputSettings().prettyPrint(false));// makes html() preserve linebreaks and
-																							// spacing
-				document.select("br").append("\\n");
-				document.select("p").prepend("\\n\\n");
-				result = document.html().replaceAll("\\s+", " ");
-				result = Jsoup.clean(result, "", Whitelist.simpleText(), new Document.OutputSettings().prettyPrint(false));
-
-				System.out.println(result);
-				inputField.getInputField().appendText(result);
+				inputField.clear();
+				inputField.getInputField().appendText(importWebPages.ImportWebPage(webTextField.getText()));
 			}
 		});
 
@@ -393,7 +366,7 @@ public class GUI
 		outputField.updateTable();
 	}
 
-	private void showInputTextDialog()
+	private void showExportTextDialog()
 	{
 
 		TextInputDialog dialogExportDB = new TextInputDialog("OracleDB_Words");
@@ -406,9 +379,28 @@ public class GUI
 
 		result.ifPresent(name ->
 		{
-			exportDataBase.Connect();
-			exportDataBase.createTable(name);
-			exportDataBase.saveTable();
+			dataBase.Connect(name);
+			dataBase.createTable(name);
+			dataBase.exportTable();
+		});
+	}
+
+	private void showImportTextDialog()
+	{
+
+		TextInputDialog dialogExportDB = new TextInputDialog("OracleDB_Words");
+
+		dialogExportDB.setTitle("Export DB");
+		dialogExportDB.setHeaderText("Enter table name:");
+		dialogExportDB.setContentText("Name:");
+
+		Optional<String> result = dialogExportDB.showAndWait();
+
+		result.ifPresent(name ->
+		{
+			dataBase.Connect(name);
+			dataBase.importTable();
+			outputField.updateTable();
 		});
 	}
 
@@ -464,9 +456,9 @@ public class GUI
 		this.exportCVS = exportCVS;
 	}
 
-	public void GUIsetReferenceExportDataBase(ExportDataBase exportDataBase)
+	public void GUIsetReferenceExportDataBase(DataBase exportDataBase)
 	{
-		this.exportDataBase = exportDataBase;
+		this.dataBase = exportDataBase;
 	}
 
 	public TextField getGoogleCodeTextField()
@@ -522,6 +514,11 @@ public class GUI
 	public void setPaneMain(Pane paneMain)
 	{
 		this.paneMain = paneMain;
+	}
+
+	public void GUIsetReferenceImportWebPages(ImportWebPages importWebPages)
+	{
+		this.importWebPages = importWebPages;
 	}
 
 }

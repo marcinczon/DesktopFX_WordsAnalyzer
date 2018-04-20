@@ -19,7 +19,7 @@ public class OutputField
 	// Referencje
 	// ****************************
 
-	Map<String, Data> outData;
+	Map<String, Data> dataMap;
 	Filter filter;
 
 	public OutputField(double heigh, double width)
@@ -44,13 +44,13 @@ public class OutputField
 
 	public void updateTable()
 	{
-		Set<String> keys = outData.keySet();
+		Set<String> keys = dataMap.keySet();
 		outputField.getItems().clear();
 
 		Data tempData;
 		for (String key : keys)
 		{
-			tempData = outData.get(key);
+			tempData = dataMap.get(key);
 			if (filter.isInFilterRange(tempData))
 			{
 				outputField.getItems().add(tempData);
@@ -61,18 +61,18 @@ public class OutputField
 
 	public void translateTable(String Language)
 	{
-		Set<String> keys = outData.keySet();
+		Set<String> keys = dataMap.keySet();
 		Data tempData;
 		for (String key : keys)
 		{
-			tempData = outData.get(key);
+			tempData = dataMap.get(key);
 			tempData.setTranslateWord(GoogleTranslator.Translate(tempData.getSource(), Language));
 		}
 	}
 
 	public void setReferenceOutData(Map<String, Data> outData)
 	{
-		this.outData = outData;
+		this.dataMap = outData;
 	}
 
 	public void setReferenceFilter(Filter filter)

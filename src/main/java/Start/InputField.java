@@ -17,7 +17,7 @@ public class InputField
 	// Referencje
 	// ****************************
 	
-	private Map<String, Data> outData;
+	private Map<String, Data> dataMap;
 
 	public InputField(double heigh, double width)
 	{
@@ -33,6 +33,10 @@ public class InputField
 	public String getText()
 	{
 		return inputField.getText();
+	}
+	public void clear()
+	{
+		inputField.clear();
 	}
 	private String replaceSpecialSing(String tempString)
 	{
@@ -58,16 +62,16 @@ public class InputField
 		}
 		String[] tempListWord = tempString.split("\\s");	
 
-		outData.clear();
+		dataMap.clear();
 
 		for (String word : tempListWord)
 		{
-			if (!outData.containsKey(word))
+			if (!dataMap.containsKey(word))
 			{
-				outData.put(word, new Data(word));
+				dataMap.put(word, new Data(word));
 			} else
 			{
-				outData.get(word).increseCounter();
+				dataMap.get(word).increseCounter();
 			}
 		}
 
@@ -75,7 +79,7 @@ public class InputField
 
 	public void setReferenceOutData(Map<String, Data> outData)
 	{
-		this.outData = outData;
+		this.dataMap = outData;
 	}
 
 }

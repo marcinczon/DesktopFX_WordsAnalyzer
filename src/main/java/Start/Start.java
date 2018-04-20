@@ -22,7 +22,8 @@ public class Start extends Application
 	static OutputField OUTPUT_FIELD;
 	static Filter FILTER = new Filter();
 	static ExportCVS EXPORT_CSV = new ExportCVS();
-	static ExportDataBase EXPORT_DATA_BASE = new ExportDataBase();
+	static DataBase EXPORT_DATA_BASE = new DataBase();
+	static ImportWebPages IMPORT_WEB_PAGES =  new ImportWebPages();
 	
 	static Map<String, Data> DATA_MAP = new HashMap<>();
 
@@ -52,6 +53,7 @@ public class Start extends Application
 		GUI.GUIsetReferenceFilter(FILTER);
 		GUI.GUIsetReferenceExportCVS(EXPORT_CSV);
 		GUI.GUIsetReferenceExportDataBase(EXPORT_DATA_BASE);
+		GUI.GUIsetReferenceImportWebPages(IMPORT_WEB_PAGES);
 
 		GUI.addToLeftPane(INPUT_FIELD.getInputField());
 		GUI.addToRighttPane(OUTPUT_FIELD.getOutputField());

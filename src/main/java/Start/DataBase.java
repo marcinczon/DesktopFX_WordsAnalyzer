@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.sql.*;
 
-public class ExportDataBase
+public class DataBase
 {
 	private Connection connection;
 	private Statement statement;
@@ -23,8 +23,9 @@ public class ExportDataBase
 	private Filter filter;
 	private Map<String, Data> dataMap;
 
-	public boolean Connect()
+	public boolean Connect(String tableName)
 	{
+		this.tableName = tableName;
 		try
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -130,9 +131,9 @@ public class ExportDataBase
 
 	}
 
-	public void saveTable()
+	public void exportTable()
 	{
-		System.out.println();
+		System.out.println("Exporting table...");
 		for (Data data : dataMap.values())
 		{
 			if (!data.getSource().equals(null) && !data.getSource().equals("") && filter.isInFilterRange(data))
@@ -148,6 +149,38 @@ public class ExportDataBase
 				}
 			}
 		}
+	}
+
+	public void importTable()
+	{
+		String querryImport = "SELECT * FROM " + tableName;
+		System.out.println("Importing table...");
+		StringBuilder stringBuilder = new StringBuilder();
+
+		try
+		{
+			resultSet = statement.executeQuery(querryImport);
+			while (resultSet.next())
+			{
+				String key = resultSet.getString("SOURCE");
+				stringBuilder.append(String.format("Imported: %d %s %s", resultSet.getInt("COUNTER"), resultSet.getString("SOURCE"), resultSet.getString("TRANSLATED")));
+				if (!dataMap.containsKey(resultSet.getString("SOURCE")))
+				{
+					dataMap.put(key, new Data(resultSet.getInt("COUNTER"), resultSet.getString("SOURCE"), resultSet.getString("TRANSLATED")));
+					System.out.println("Imprt new: " + stringBuilder.toString());
+				} else
+				{
+					dataMap.get(key).increseCounter();
+					System.out.println("Imprt upd: " + stringBuilder.toString());
+				}
+				stringBuilder.setLength(0);
+
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 	public void setReferenceDataMap(Map<String, Data> dataMap)

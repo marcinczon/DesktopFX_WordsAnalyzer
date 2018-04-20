@@ -36,6 +36,12 @@
 			<version>1.21.0</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>11.2.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/ojdbc7.jar</systemPath>
+		</dependency>
 	</dependencies>
 </project>
