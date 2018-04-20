@@ -1,66 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/mczonstke/Desktop/Java/jsoup-1.11.2 (1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/mczonstke/Desktop/Java/ojdbc7.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-servlet-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-gson-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-gson-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jackson2-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jackson2-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jdo-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jdo-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-1.18.0-rc.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-servlet-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/gson-2.1.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/gson-2.1.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jackson-core-2.1.3.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jackson-core-2.1.3.jar.properties"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jdo2-api-2.3-eb.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jsr305-1.3.9.jar"/>
-	<classpathentry kind="lib" path=".google_apis/translate-v2r42lv1.18.0-rc/translate/libs/transaction-api-1.1.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/google-api-services-translate-v2-rev42-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/google-api-services-translate-v2-rev42-1.18.0-rc-javadoc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/google-api-services-translate-v2-rev42-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-api-client-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-api-client-appengine-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-api-client-servlet-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-http-client-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-http-client-appengine-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-http-client-gson-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-http-client-jackson2-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-http-client-jdo-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-oauth-client-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-oauth-client-appengine-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/google-oauth-client-servlet-1.18.0-rc-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/gson-2.1-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/jackson-core-2.1.3-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/jdo2-api-2.3-eb-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs-sources/transaction-api-1.1-sources.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-api-client-servlet-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-gson-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jackson2-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-http-client-jdo-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-appengine-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/google-oauth-client-servlet-1.18.0-rc.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/gson-2.1.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jackson-core-2.1.3.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jdo2-api-2.3-eb.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/jsr305-1.3.9.jar"/>
-	<classpathentry kind="lib" path="D:/2_Prywatne/Java/JavaWorkspace/TekstAnalizer_v2/.google_apis/translate-v2r42lv1.18.0-rc/translate/libs/transaction-api-1.1.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
