@@ -65,7 +65,7 @@ public class Start extends Application
 		Scene scene = new Scene(GUI.getPaneMain(), WIDTH, HEIGH);
 
 		stage.setScene(scene);
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.show();
 	}
 
