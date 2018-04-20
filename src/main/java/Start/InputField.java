@@ -1,4 +1,5 @@
 package Start;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -6,18 +7,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 
 public class InputField
 {
-	
+
 	private TextArea inputField;
 
 	// ****************************
 	// Referencje
 	// ****************************
-	
+
 	private Map<String, Data> dataMap;
+
+	// ****************************
+	//
+	// ****************************
 
 	public InputField(double heigh, double width)
 	{
@@ -25,19 +31,26 @@ public class InputField
 		inputField.setPrefSize(width, heigh);
 	}
 
-	public TextArea getInputField()
+	public Node getInputField()
 	{
 		return inputField;
+	}
+
+	public void appendText(String append)
+	{
+		inputField.appendText(append);
 	}
 
 	public String getText()
 	{
 		return inputField.getText();
 	}
+
 	public void clear()
 	{
 		inputField.clear();
 	}
+
 	private String replaceSpecialSing(String tempString)
 	{
 		tempString = tempString.replaceAll("ą", "a");
@@ -50,19 +63,23 @@ public class InputField
 		tempString = tempString.replaceAll("ź", "z");
 		return tempString;
 	}
-	public void writeAllWords()
+
+	public void writeAllWords(boolean newMap)
 	{
 		String tempString = inputField.getText().toLowerCase();
 		tempString = replaceSpecialSing(tempString);
-		
+
 		tempString = tempString.replaceAll("[^a-zA-Z]", " ").toLowerCase();
-		for(int i =0 ; i < 10 ; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			tempString = tempString.replace(Integer.toString(i), " ");
 		}
-		String[] tempListWord = tempString.split("\\s");	
+		String[] tempListWord = tempString.split("\\s");
 
-		dataMap.clear();
+		if (newMap)
+		{
+			dataMap.clear();
+		}
 
 		for (String word : tempListWord)
 		{

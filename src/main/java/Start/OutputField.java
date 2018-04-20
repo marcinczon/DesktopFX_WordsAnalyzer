@@ -10,6 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OutputField
 {
+	// ****************************
+	// Private
+	// ****************************
+	
 	private TableView<Data> outputField = new TableView<Data>();
 	private TableColumn<Data, Integer> counter = new TableColumn<Data, Integer>("Counter");
 	private TableColumn<Data, String> source = new TableColumn<Data, String>("Source");
@@ -22,6 +26,10 @@ public class OutputField
 	Map<String, Data> dataMap;
 	Filter filter;
 
+	// ****************************
+	// 
+	// ****************************
+	
 	public OutputField(double heigh, double width)
 	{
 		outputField.setEditable(true);
@@ -45,11 +53,12 @@ public class OutputField
 	public void updateTable()
 	{
 		Set<String> keys = dataMap.keySet();
+		
 		outputField.getItems().clear();
 
 		Data tempData;
 		for (String key : keys)
-		{
+		{			
 			tempData = dataMap.get(key);
 			if (filter.isInFilterRange(tempData))
 			{
@@ -59,20 +68,20 @@ public class OutputField
 
 	}
 
-	public void translateTable(String Language)
+	public void translateTable(String language)
 	{
 		Set<String> keys = dataMap.keySet();
 		Data tempData;
 		for (String key : keys)
 		{
 			tempData = dataMap.get(key);
-			tempData.setTranslateWord(GoogleTranslator.Translate(tempData.getSource(), Language));
+			tempData.setTranslateWord(GoogleTranslator.Translate(tempData.getSource(), language));
 		}
 	}
 
-	public void setReferenceOutData(Map<String, Data> outData)
+	public void setReferenceOutData(Map<String, Data> dataMap)
 	{
-		this.dataMap = outData;
+		this.dataMap = dataMap;
 	}
 
 	public void setReferenceFilter(Filter filter)

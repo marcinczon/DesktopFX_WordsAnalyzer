@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Set;
 import java.sql.*;
 
 public class DataBase
@@ -136,7 +137,7 @@ public class DataBase
 		System.out.println("Exporting table...");
 		for (Data data : dataMap.values())
 		{
-			if (!data.getSource().equals(null) && !data.getSource().equals("") && filter.isInFilterRange(data))
+			if (!data.getSource().equals("null") && !data.getSource().equals(null) && !data.getSource().equals("") && filter.isInFilterRange(data))
 			{
 				if (isExist(data.getSource()))
 				{
@@ -163,24 +164,22 @@ public class DataBase
 			while (resultSet.next())
 			{
 				String key = resultSet.getString("SOURCE");
-				stringBuilder.append(String.format("Imported: %d %s %s", resultSet.getInt("COUNTER"), resultSet.getString("SOURCE"), resultSet.getString("TRANSLATED")));
-				if (!dataMap.containsKey(resultSet.getString("SOURCE")))
+				if (key != null)
 				{
-					dataMap.put(key, new Data(resultSet.getInt("COUNTER"), resultSet.getString("SOURCE"), resultSet.getString("TRANSLATED")));
-					System.out.println("Imprt new: " + stringBuilder.toString());
-				} else
-				{
-					dataMap.get(key).increseCounter();
-					System.out.println("Imprt upd: " + stringBuilder.toString());
+					if (!dataMap.containsKey(key))
+					{						//System.out.println();
+						dataMap.put(key, new Data(resultSet.getInt("COUNTER"), resultSet.getString("SOURCE"), resultSet.getString("TRANSLATED")));
+					} else
+					{
+						dataMap.get(key).increseCounter(resultSet.getInt("COUNTER"));
+					}
 				}
-				stringBuilder.setLength(0);
 
 			}
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	public void setReferenceDataMap(Map<String, Data> dataMap)

@@ -4,12 +4,20 @@ import java.util.Comparator;
 
 public class Data
 {
+	// ****************************
+	// Private
+	// ****************************
+	
 	private int counter = 1;
 	private int sourceWordLength = 0;
 	private int translateWordLength = 0;
 	private String source = "null";
 	private String translate = "null";
 
+	// ****************************
+	// 
+	// ****************************
+	
 	Data(String source)
 	{
 		this.source = source;
@@ -27,8 +35,14 @@ public class Data
 	{
 		if (counter > 1)
 			this.counter = counter;
-		this.source = source;
-		this.translate = translate;
+		if (source != null)
+		{
+			this.source = source;
+		}
+		if (translate != null)
+		{
+			this.translate = translate;
+		}
 		InitParameters();
 	}
 
@@ -41,6 +55,10 @@ public class Data
 	public void increseCounter()
 	{
 		counter++;
+	}
+	public void increseCounter(int counter)
+	{
+		this.counter=this.counter+counter;
 	}
 
 	public int getCounter()

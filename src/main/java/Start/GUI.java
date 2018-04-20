@@ -2,9 +2,12 @@ package Start;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -67,16 +70,17 @@ public class GUI
 	private Button buttonExportCSV = new Button("Export CSV");
 	private Button buttonExportDB = new Button("Export DB");
 	private Button buttonImportDB = new Button("Import DB");
+	private Button buttonWebTable = new Button("Webs Table");
 
 	private Label couterLabel = new Label(String.format("%4d", 0));
 	private Label textLabel1 = new Label("Length:    ");
 	private Label textLabel2 = new Label("Counter:  ");
 
-	private TextField minWordLength = new TextField("1");
+	private TextField minWordLength = new TextField("3");
 	private TextField maxWordLength = new TextField("99");
-	private TextField minCounter = new TextField("3");
+	private TextField minCounter = new TextField("1");
 	private TextField maxCounter = new TextField("999");
-	private TextField webTextField = new TextField("http://www.google.com");
+	private TextField webTextField = new TextField("www.bbc.com");
 	static TextField googleCodeTextField = new TextField("Google Code");
 	private TextField setLanguage = new TextField("Language");
 
@@ -95,8 +99,9 @@ public class GUI
 	private Filter filter;
 	private ExportCVS exportCVS;
 	private DataBase dataBase;
-	private ImportWebPages importWebPages;
-	private Map<String, Data> outData;
+	private ImportWebPage importWebPages;
+	private ImportWebTable importWebTable;
+	private Map<String, Data> dataMap;
 
 	public GUI(double width, double heigh)
 	{
@@ -150,6 +155,7 @@ public class GUI
 		buttonExportCSV.setPrefWidth(100);
 		buttonExportDB.setPrefWidth(100);
 		buttonImportDB.setPrefWidth(100);
+		buttonWebTable.setPrefWidth(100);
 
 		textLabel1.setStyle(style);
 
@@ -170,7 +176,7 @@ public class GUI
 
 		hboxBottom1.setAlignment(Pos.BASELINE_RIGHT);
 		hboxBottom1.setSpacing(1);
-		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV, buttonImportDB, buttonExportDB);
+		hboxBottom1.getChildren().addAll(buttonAnalyze, buttonUpdate, buttonExportCSV, buttonImportDB, buttonExportDB, buttonWebTable);
 		hboxBottom2.getChildren().addAll(textLabel1, minWordLength, maxWordLength);
 		hboxBottom3.getChildren().addAll(textLabel2, minCounter, maxCounter);
 
@@ -219,9 +225,9 @@ public class GUI
 		{
 			public void handle(MouseEvent event)
 			{
-				inputField.writeAllWords();
-				outputField.updateTable();
-				couterLabel.setText(String.format("%4d", outData.size()));
+				inputField.writeAllWords(true);
+				updateTable();
+				couterLabel.setText(String.format("%4d", dataMap.size()));
 			}
 		});
 
@@ -229,8 +235,8 @@ public class GUI
 		{
 			public void handle(MouseEvent event)
 			{
-				UpdateTable();
-				couterLabel.setText(String.format("%4d", outData.size()));
+				updateTable();
+				couterLabel.setText(String.format("%4d", dataMap.size()));
 
 			}
 		});
@@ -267,7 +273,7 @@ public class GUI
 			public void handle(MouseEvent event)
 			{
 				inputField.clear();
-				inputField.getInputField().appendText(importWebPages.ImportWebPage(webTextField.getText()));
+				inputField.appendText(importWebPages.ImportWebPage(webTextField.getText()));
 			}
 		});
 
@@ -276,7 +282,7 @@ public class GUI
 			public void handle(MouseEvent event)
 			{
 				outputField.translateTable(setLanguage.getText());
-				UpdateTable();
+				updateTable();
 			}
 		});
 
@@ -358,12 +364,35 @@ public class GUI
 				}
 			}
 		});
+		buttonWebTable.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			public void handle(MouseEvent event)
+			{
+				try
+				{			
+					for (String web : importWebTable.ImportWebTable())
+					{				
+						inputField.appendText(importWebPages.ImportWebPage(web));
+						inputField.writeAllWords(false);
+						updateTable();
+						couterLabel.setText(String.format("%4d", dataMap.size()));		
+						inputField.clear();
+					}
+					inputField.appendText(importWebTable.getWebsString());
+				} catch (IOException  e)
+				{
+					e.printStackTrace();
+				}
+
+			}
+		});
 
 	}
 
-	private void UpdateTable()
+	private void updateTable()
 	{
 		outputField.updateTable();
+
 	}
 
 	private void showExportTextDialog()
@@ -446,9 +475,9 @@ public class GUI
 		paneBottom.getChildren().add(shape);
 	}
 
-	public void GUIsetReferenceOutData(Map<String, Data> outData)
+	public void GUIsetReferenceOutData(Map<String, Data> dataMap)
 	{
-		this.outData = outData;
+		this.dataMap = dataMap;
 	}
 
 	public void GUIsetReferenceExportCVS(ExportCVS exportCVS)
@@ -516,9 +545,14 @@ public class GUI
 		this.paneMain = paneMain;
 	}
 
-	public void GUIsetReferenceImportWebPages(ImportWebPages importWebPages)
+	public void GUIsetReferenceImportWebPages(ImportWebPage importWebPages)
 	{
 		this.importWebPages = importWebPages;
+	}
+
+	public void GUIsetReferenceImportWebTable(ImportWebTable importWebTable)
+	{
+		this.importWebTable = importWebTable;
 	}
 
 }

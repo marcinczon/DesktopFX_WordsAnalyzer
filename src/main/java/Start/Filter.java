@@ -2,7 +2,7 @@ package Start;
 
 public class Filter
 {
-	private int minLengthRange = 1;
+	private int minLengthRange = 3;
 	private int maxLengthRange = 99;
 	private int minCounterRange = 1;
 	private int maxCounterRange = 9999;
@@ -39,10 +39,7 @@ public class Filter
 
 	public boolean isInFilterRange(Data data)
 	{
-		if (isInCounterRange(data) && isInLengthRange(data))
-			return true;
-		else
-			return false;
+		return (isInCounterRange(data) && isInLengthRange(data));
 	}
 
 	public void setMinLengthRange(int minRange)

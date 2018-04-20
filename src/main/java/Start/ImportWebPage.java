@@ -1,6 +1,7 @@
 package Start;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.jsoup.Jsoup;
@@ -9,11 +10,14 @@ import org.jsoup.safety.Whitelist;
 
 import javafx.scene.input.MouseEvent;
 
-public class ImportWebPages
+public class ImportWebPage
 {
+	// ****************************
+	// Private
+	// ****************************
 
-	String head = "http://";
-	String fullHead = head + "www.";
+	private String head = "http://";
+	private String fullHead = head + "www.";
 
 	// ****************************
 	// Referencje
@@ -24,7 +28,7 @@ public class ImportWebPages
 	private Filter filter;
 	private ExportCVS exportCVS;
 	private DataBase dataBase;
-	private Map<String, Data> outData;
+	private Map<String, Data> dataMap;
 
 	public String ImportWebPage(String html)
 	{
@@ -87,9 +91,9 @@ public class ImportWebPages
 		this.dataBase = dataBase;
 	}
 
-	public void setOutData(Map<String, Data> outData)
+	public void setOutData(Map<String, Data> dataMap)
 	{
-		this.outData = outData;
+		this.dataMap = dataMap;
 	}
 
 }
